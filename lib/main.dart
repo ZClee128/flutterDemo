@@ -4,7 +4,7 @@ import 'bottom_appbar_demo.dart';
 void main() {
   runApp(MaterialApp(
     title: '导航栏测试',
-    home: Test4(),
+    home: PushPage(),
   ));
 }
 
@@ -16,6 +16,7 @@ class FirstView extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('flutter test'),
+          elevation: 0.0,
         ),
         body: Center(
           child: RaisedButton(
@@ -36,7 +37,11 @@ class TwoView extends StatelessWidget {
     return MaterialApp(
       title: '第二个页面',
       home: Scaffold(
-        appBar: AppBar(title: Text('第二个页面'),),
+        appBar: AppBar(
+          title: Text('第二个页面'),
+          leading:Container(),
+          elevation: 0.0,
+        ),
         body: Center(child: RaisedButton(child: Text("返回"),onPressed: (){
           Navigator.pop(context);
         },),),
@@ -164,6 +169,21 @@ class Test4 extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
       ),
       home: BottomAppbarDemo(),
+    );
+  }
+}
+
+class PushPage extends StatelessWidget {
+  const PushPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '测试转场动画',
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue
+      ),
+      home: FirstView(),
     );
   }
 }

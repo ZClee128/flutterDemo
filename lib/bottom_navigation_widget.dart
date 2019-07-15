@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/home.dart';
-import 'pages/email.dart';
-import 'pages/pages.dart';
-import 'pages/aipPlay.dart';
+import 'pages/eachView.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   BottomNavigationWidget({Key key}) : super(key: key);
@@ -17,10 +14,10 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   @override
   void initState() {
     list
-      ..add(Home())
-      ..add(Email())
-      ..add(Pages())
-      ..add(AipPlay());
+      ..add(EachView('Home'))
+      ..add(EachView('Eamil'))
+      ..add(EachView('Pages'))
+      ..add(EachView('AipPay'));
     super.initState();
   }
 
