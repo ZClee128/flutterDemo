@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_app/pages/search.dart';
+import 'package:flutter_app/pages/warp_demo.dart';
 import 'bottom_navigation_widget.dart';
 import 'bottom_appbar_demo.dart';
+import 'pages/custome_router.dart';
+
 void main() {
   runApp(MaterialApp(
     title: '导航栏测试',
-    home: PushPage(),
+    debugShowCheckedModeBanner: false,
+    home: WarpDemo(),
   ));
 }
 
@@ -21,8 +27,8 @@ class FirstView extends StatelessWidget {
         body: Center(
           child: RaisedButton(
             child: Text('查看'),
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => new TwoView() ));
+            onPressed: () {
+              Navigator.push(context, CustomeRouter(TwoView()));
             },
           ),
         ),
@@ -39,12 +45,18 @@ class TwoView extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('第二个页面'),
-          leading:Container(),
+          leading: Container(),
           elevation: 0.0,
         ),
-        body: Center(child: RaisedButton(child: Text("返回"),onPressed: (){
-          Navigator.pop(context);
-        },),),
+        backgroundColor: Colors.lightBlue,
+        body: Center(
+          child: RaisedButton(
+            child: Text("返回"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ),
     );
   }
@@ -53,12 +65,12 @@ class TwoView extends StatelessWidget {
 class Product {
   final String title;
   final String des;
-  Product(this.title,this.des);
+  Product(this.title, this.des);
 }
 
 class ProductList extends StatelessWidget {
   final List<Product> products;
-  const ProductList({Key key,@required this.products}) : super(key: key);
+  const ProductList({Key key, @required this.products}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +82,15 @@ class ProductList extends StatelessWidget {
         ),
         body: ListView.builder(
           itemCount: products.length,
-          itemBuilder: (context,index){
+          itemBuilder: (context, index) {
             return ListTile(
               title: Text(products[index].title),
-              onTap: (){
+              onTap: () {
                 Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context)=>new ProductsDetail(product:products[index])
-                  )
-                );
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            new ProductsDetail(product: products[index])));
               },
             );
           },
@@ -89,16 +100,19 @@ class ProductList extends StatelessWidget {
   }
 }
 
-
 class ProductsDetail extends StatelessWidget {
   final Product product;
-  const ProductsDetail({Key key,@required this.product}) : super(key: key);
+  const ProductsDetail({Key key, @required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(title: Text('商品详情'),),
-      body: Center(child: Text('${product.des}'),),
+      appBar: AppBar(
+        title: Text('商品详情'),
+      ),
+      body: Center(
+        child: Text('${product.des}'),
+      ),
     );
   }
 }
@@ -115,7 +129,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RaisedButton(
       child: Text('找小姐姐'),
-      onPressed: (){
+      onPressed: () {
         _navGoToFindXiaoJieJie(context);
       },
     );
@@ -123,12 +137,10 @@ class MyButton extends StatelessWidget {
 
   _navGoToFindXiaoJieJie(BuildContext context) async {
     final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context)=>XiaoJieJie()
-      )  
-    );
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('$result'),));
+        context, MaterialPageRoute(builder: (context) => XiaoJieJie()));
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('$result'),
+    ));
   }
 }
 
@@ -136,31 +148,35 @@ class XiaoJieJie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('我是小姐姐'),),
-      body: Center(child: Column(
-        children: <Widget>[
-          RaisedButton(
+      appBar: AppBar(
+        title: Text('我是小姐姐'),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
               child: Text('大长腿小姐姐'),
-              onPressed: (){
-                Navigator.pop(context,'大长腿:1511008888');
+              onPressed: () {
+                Navigator.pop(context, '大长腿:1511008888');
               },
-            ) ,
-          RaisedButton(
-            child: Text('小蛮腰小姐姐'),
-            onPressed: (){
-              Navigator.pop(context,'小蛮腰小姐姐:1511009999');
-            },
-          ) ,
-          Image.asset('images/real_name_man_icon.png'),
-        ],
-      ),),
+            ),
+            RaisedButton(
+              child: Text('小蛮腰小姐姐'),
+              onPressed: () {
+                Navigator.pop(context, '小蛮腰小姐姐:1511009999');
+              },
+            ),
+            Image.asset('images/real_name_man_icon.png'),
+          ],
+        ),
+      ),
     );
   }
 }
 
 class Test4 extends StatelessWidget {
   const Test4({Key key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -180,10 +196,98 @@ class PushPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '测试转场动画',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue
-      ),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
       home: FirstView(),
+    );
+  }
+}
+
+class KeepAliveDemo extends StatefulWidget {
+  KeepAliveDemo({Key key}) : super(key: key);
+
+  _KeepAliveDemoState createState() => _KeepAliveDemoState();
+}
+
+class _KeepAliveDemoState extends State<KeepAliveDemo>
+    with SingleTickerProviderStateMixin {
+  TabController _controller;
+  @override
+  void initState() {
+    _controller = TabController(length: 3, vsync: this);
+    super.initState();
+  }
+
+// 重写释放
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('保持状态不变'),
+        bottom: TabBar(
+          controller: _controller,
+          tabs: <Widget>[
+            Tab(
+              icon: Icon(Icons.home),
+            ),
+            Tab(
+              icon: Icon(Icons.email),
+            ),
+            Tab(
+              icon: Icon(Icons.directions_car),
+            ),
+          ],
+        ),
+      ),
+      body: TabBarView(
+        controller: _controller,
+        children: <Widget>[TestHomePage(), TestHomePage(), TestHomePage()],
+      ),
+    );
+  }
+}
+
+class TestHomePage extends StatefulWidget {
+  TestHomePage({Key key}) : super(key: key);
+
+  _TestHomePageState createState() => _TestHomePageState();
+}
+
+class _TestHomePageState extends State<TestHomePage> with AutomaticKeepAliveClientMixin {
+  int _count = 0;
+
+  @override
+  bool get wantKeepAlive => true;
+
+  void _add (){
+    setState(() {
+      _count++;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('点击加一'),
+            Text(
+              '$_count',
+              style: Theme.of(context).textTheme.display1,
+            )
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _add,
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
