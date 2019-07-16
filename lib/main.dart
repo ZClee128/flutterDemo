@@ -10,7 +10,7 @@ void main() {
   runApp(MaterialApp(
     title: '导航栏测试',
     debugShowCheckedModeBanner: false,
-    home: WarpDemo(),
+    home: GridViewDemo(),
   ));
 }
 
@@ -176,7 +176,7 @@ class XiaoJieJie extends StatelessWidget {
 
 class Test4 extends StatelessWidget {
   const Test4({Key key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -258,17 +258,19 @@ class TestHomePage extends StatefulWidget {
   _TestHomePageState createState() => _TestHomePageState();
 }
 
-class _TestHomePageState extends State<TestHomePage> with AutomaticKeepAliveClientMixin {
+class _TestHomePageState extends State<TestHomePage>
+    with AutomaticKeepAliveClientMixin {
   int _count = 0;
 
   @override
   bool get wantKeepAlive => true;
 
-  void _add (){
+  void _add() {
     setState(() {
       _count++;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -287,6 +289,47 @@ class _TestHomePageState extends State<TestHomePage> with AutomaticKeepAliveClie
       floatingActionButton: FloatingActionButton(
         onPressed: _add,
         child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class GridViewDemo extends StatefulWidget {
+  GridViewDemo({Key key}) : super(key: key);
+
+  _GridViewDemoState createState() => _GridViewDemoState();
+}
+
+class _GridViewDemoState extends State<GridViewDemo> {
+  List<Widget> list = List();
+
+  @override
+  void initState() {
+    for (var i = 0; i < 9; i++) {
+      list..add(icons());
+    }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Card(
+          child: Wrap(
+          children: list,
+          spacing: 10.0,
+        ),
+      )
+    );
+  }
+
+  Widget icons() {
+    return Container(
+      color: Colors.redAccent,
+      width: 80.0,
+      height: 80.0,
+      child: Center(
+        child: Text('测试'),
       ),
     );
   }
