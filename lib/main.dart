@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/pages/search.dart';
+import 'package:flutter_app/pages/socket.dart';
 import 'package:flutter_app/pages/warp_demo.dart';
 import 'bottom_navigation_widget.dart';
 import 'bottom_appbar_demo.dart';
 import 'pages/custome_router.dart';
-
+import 'pages/viedo.dart';
 void main() {
   runApp(MaterialApp(
     title: '导航栏测试',
     debugShowCheckedModeBanner: false,
-    home: GridViewDemo(),
+    home: WebSocketRoute(),
   ));
 }
 

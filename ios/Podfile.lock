@@ -1,0 +1,29 @@
+PODS:
+  - flt_video_player (0.0.1):
+    - Flutter
+    - TXLiteAVSDK_Player
+  - Flutter (1.0.0)
+  - TXLiteAVSDK_Player (6.3.7088)
+
+DEPENDENCIES:
+  - flt_video_player (from `.symlinks/plugins/flt_video_player/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - TXLiteAVSDK_Player
+
+EXTERNAL SOURCES:
+  flt_video_player:
+    :path: ".symlinks/plugins/flt_video_player/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  flt_video_player: 5ac12f52274ca5f0446a8c735ab565e998d8c0a4
+  Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
+  TXLiteAVSDK_Player: 79dff307726719163a35266ade3cb9ea815f360a
+
+PODFILE CHECKSUM: 510ba718a13f6fcd818c0ad0a3a194e98c25adc3
+
+COCOAPODS: 1.6.1
