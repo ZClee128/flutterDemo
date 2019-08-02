@@ -1,3 +1,4 @@
+import 'package:flt_video_player/flt_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/pages/search.dart';

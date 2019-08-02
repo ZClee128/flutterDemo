@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:better_socket/better_socket.dart';
 
 class WebSocketRoute extends StatefulWidget {
   @override
@@ -10,14 +10,28 @@ class WebSocketRoute extends StatefulWidget {
 
 class _WebSocketRouteState extends State<WebSocketRoute> {
   TextEditingController _controller = new TextEditingController();
-  IOWebSocketChannel channel;
+  // IOWebSocketChannel channel;
   String _text = "";
-
 
   @override
   void initState() {
     //创建websocket连接
-    channel = new IOWebSocketChannel.connect('ws://139.199.153.108:5152/websocket');
+    // channel =
+    //     new IOWebSocketChannel.connect('ws://139.199.153.108:5152/websocket');
+    BetterSocket.connentSocket("ws://123.207.167.163:9010/ajaxchattest");
+    BetterSocket.addListener(onOpen: (httpStatus, httpStatusMessage) {
+      print(
+          "onOpen---httpStatus:$httpStatus  httpStatusMessage:$httpStatusMessage");
+    }, onMessage: (message) {
+      setState(() {
+        _text = message;
+      });
+      print("onMessage---message:$message");
+    }, onClose: (code, reason, remote) {
+      print("onClose---code:$code  reason:$reason  remote:$remote");
+    }, onError: (message) {
+      print("onError---message:$message");
+    });
   }
 
   @override
@@ -37,22 +51,10 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
                 decoration: new InputDecoration(labelText: 'Send a message'),
               ),
             ),
-            new StreamBuilder(
-              stream: channel.stream,
-              builder: (context, snapshot) {
-                //网络不通会走到这
-                if (snapshot.hasError) {
-                  print(snapshot.error);
-                  _text = "网络不通...";
-                } else if (snapshot.hasData) {
-                  _text = "echo: "+snapshot.data;
-                }
-                return new Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
-                  child: new Text(_text),
-                );
-              },
-            )
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24.0),
+              child: new Text(_text),
+            ),
           ],
         ),
       ),
@@ -66,13 +68,15 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
-      channel.sink.add(_controller.text);
+      // channel.sink.add(_controller.text);
+      BetterSocket.sendMsg(_controller.text);
     }
   }
 
   @override
   void dispose() {
-    channel.sink.close();
+    // channel.sink.close();
+    BetterSocket.close();
     super.dispose();
   }
 }
