@@ -26,6 +26,7 @@ dependencies:
   flt_video_player: ^0.0.2
   web_socket_channel: ^1.0.14
   better_socket: ^1.0.4
+  drawing_animation: ^0.1.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,6 +46,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/real_name_man_icon.png
+    - images/biji.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

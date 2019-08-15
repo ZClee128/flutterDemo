@@ -8,33 +8,41 @@ import 'bottom_navigation_widget.dart';
 import 'bottom_appbar_demo.dart';
 import 'pages/custome_router.dart';
 import 'pages/viedo.dart';
+import 'package:drawing_animation/drawing_animation.dart';
+
 void main() {
   runApp(MaterialApp(
     title: '导航栏测试',
     debugShowCheckedModeBanner: false,
-    home: WebSocketRoute(),
+    home: FirstView(),
   ));
 }
 
 class FirstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool run = true;
     return MaterialApp(
       title: "flutter test",
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('flutter test'),
-          elevation: 0.0,
-        ),
-        body: Center(
-          child: RaisedButton(
-            child: Text('查看'),
-            onPressed: () {
-              Navigator.push(context, CustomeRouter(TwoView()));
-            },
+          appBar: AppBar(
+            title: Text('flutter test'),
+            elevation: 0.0,
           ),
-        ),
-      ),
+          // body: Center(
+          //   child: RaisedButton(
+          //     child: Text('查看'),
+          //     onPressed: () {
+          //       Navigator.push(context, CustomeRouter(TwoView()));
+          //     },
+          //   ),
+          // ),
+          body: AnimatedDrawing.svg(
+            "images/biji.svg",
+            run: run,
+            duration: new Duration(seconds: 3),
+            onFinish: (){},
+          )),
     );
   }
 }
@@ -317,12 +325,11 @@ class _GridViewDemoState extends State<GridViewDemo> {
   Widget build(BuildContext context) {
     return Center(
         child: Card(
-          child: Wrap(
-          children: list,
-          spacing: 10.0,
-        ),
-      )
-    );
+      child: Wrap(
+        children: list,
+        spacing: 10.0,
+      ),
+    ));
   }
 
   Widget icons() {
