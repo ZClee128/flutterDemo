@@ -27,6 +27,7 @@ dependencies:
   web_socket_channel: ^1.0.14
   better_socket: ^1.0.4
   drawing_animation: ^0.1.3
+  provider: ^3.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

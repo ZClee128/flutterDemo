@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_app/pages/search.dart';
 import 'package:flutter_app/pages/socket.dart';
 import 'package:flutter_app/pages/warp_demo.dart';
+import 'package:provider/provider.dart';
 import 'bottom_navigation_widget.dart';
 import 'bottom_appbar_demo.dart';
 import 'pages/custome_router.dart';
@@ -11,11 +12,15 @@ import 'pages/viedo.dart';
 import 'package:drawing_animation/drawing_animation.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: '导航栏测试',
-    debugShowCheckedModeBanner: false,
-    home: FirstView(),
-  ));
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => CountModel(1)),
+      ],
+      child: MaterialApp(
+        title: '导航栏测试',
+        debugShowCheckedModeBanner: false,
+        home: FirstView(),
+      )));
 }
 
 class FirstView extends StatelessWidget {
@@ -26,23 +31,26 @@ class FirstView extends StatelessWidget {
       title: "flutter test",
       home: Scaffold(
           appBar: AppBar(
-            title: Text('flutter test'),
+            title: Text("${Provider.of<CountModel>(context).count}"),
             elevation: 0.0,
           ),
-          // body: Center(
-          //   child: RaisedButton(
-          //     child: Text('查看'),
-          //     onPressed: () {
-          //       Navigator.push(context, CustomeRouter(TwoView()));
-          //     },
-          //   ),
-          // ),
-          body: AnimatedDrawing.svg(
-            "images/biji.svg",
-            run: run,
-            duration: new Duration(seconds: 3),
-            onFinish: (){},
-          )),
+          body: Center(
+            child: RaisedButton(
+              child: Text('查看'),
+              onPressed: () {
+                // Navigator.push(context, CustomeRouter(TwoView()));
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return TwoView();
+                }));
+              },
+            ),
+          ),
+          // body: AnimatedDrawing.svg(
+          //   "images/biji.svg",
+          //   run: run,
+          //   duration: new Duration(seconds: 3),
+          //   onFinish: () {},
+          )
     );
   }
 }
@@ -61,14 +69,26 @@ class TwoView extends StatelessWidget {
         backgroundColor: Colors.lightBlue,
         body: Center(
           child: RaisedButton(
-            child: Text("返回"),
+            child: Text("加"),
             onPressed: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Provider.of<CountModel>(context).add();
             },
           ),
         ),
       ),
     );
+  }
+}
+
+class CountModel with ChangeNotifier {
+  int _count = 0;
+  CountModel(this._count);
+  int get count => _count;
+
+  void add(){
+    _count++;
+    notifyListeners();
   }
 }
 
