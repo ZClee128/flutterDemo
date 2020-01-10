@@ -1,6 +1,7 @@
 import 'package:flt_video_player/flt_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/pages/home.dart';
 import 'package:flutter_app/pages/search.dart';
 import 'package:flutter_app/pages/socket.dart';
 import 'package:flutter_app/pages/warp_demo.dart';
@@ -19,7 +20,7 @@ void main() {
       child: MaterialApp(
         title: '导航栏测试',
         debugShowCheckedModeBanner: false,
-        home: FirstView(),
+        home: WebSocketRoute(),
       )));
 }
 

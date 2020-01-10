@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:better_socket/better_socket.dart';
@@ -18,7 +20,7 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
     //创建websocket连接
     // channel =
     //     new IOWebSocketChannel.connect('ws://139.199.153.108:5152/websocket');
-    BetterSocket.connentSocket("ws://123.207.167.163:9010/ajaxchattest");
+    BetterSocket.connentSocket("wss://api.matrixone.io/coinsdata/api/MarketsList/");
     BetterSocket.addListener(onOpen: (httpStatus, httpStatusMessage) {
       print(
           "onOpen---httpStatus:$httpStatus  httpStatusMessage:$httpStatusMessage");
@@ -69,7 +71,11 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
       // channel.sink.add(_controller.text);
-      BetterSocket.sendMsg(_controller.text);
+      var data = {'parmas':{"market":"USDT","exchange":"BN"}};
+      
+      
+      // BetterSocket.sendMsg( data.toString());
+      BetterSocket.sendByteMsg(Uint8List.fromList(jsonEncode(data).codeUnits));
     }
   }
 
