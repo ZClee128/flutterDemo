@@ -20,7 +20,7 @@ class _WebSocketRouteState extends State<WebSocketRoute> {
     //创建websocket连接
     // channel =
     //     new IOWebSocketChannel.connect('ws://139.199.153.108:5152/websocket');
-    BetterSocket.connentSocket("wss://api.matrixone.io/coinsdata/api/MarketsList/");
+    BetterSocket.connentSocket("wss://api.matrixone.io/coinsdata/api/MarketsList/",trustAllHost: true);
     BetterSocket.addListener(onOpen: (httpStatus, httpStatusMessage) {
       print(
           "onOpen---httpStatus:$httpStatus  httpStatusMessage:$httpStatusMessage");
